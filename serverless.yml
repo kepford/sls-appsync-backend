@@ -16,7 +16,7 @@ functions:
     handler: handler.graphql
 
 custom:
-  accountId: { Ref: AWS::AccountId }
+  accountId:  #{AWS::AccountId}
   appSync:
     name: sls-appsync-api
     authenticationType: AMAZON_COGNITO_USER_POOLS
