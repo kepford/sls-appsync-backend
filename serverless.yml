@@ -7,21 +7,23 @@ plugins:
 provider:
   name: aws
   runtime: nodejs8.10
-  profile: student1
+  stage: ${opt:stage, 'dev'}
+  region: us-west-2
+  profile: default
 
 functions:
   graphql:
     handler: handler.graphql
 
 custom:
-  accountId: #{AWS::AccountId}
+  accountId: { Ref: AWS::AccountId }
   appSync:
     name: sls-appsync-api
     authenticationType: AMAZON_COGNITO_USER_POOLS
     userPoolConfig:
-      awsRegion:  us-east-1
+      awsRegion: { Ref: AWS::Region }
       defaultAction: ALLOW
-      userPoolId:  { Ref: CognitoUserPool } 
+      userPoolId:  { Ref: CognitoUserPool }
     mappingTemplates:
       - dataSource: awsLambdaDataSource
         type: Query #Query, Mutation, Subscription
